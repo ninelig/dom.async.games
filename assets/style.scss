@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
+.iceberg-regular {
+    font-family: "Iceberg", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    font-size: 22px;
+}
+
+*, body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'iceberg-regular';
+}
+
+
+html, body {
+    height: 100%;
+}
+
+
+#main-container {
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+#main-section {
+    flex-basis: 100%;
+}
+
+#top-section {
+    border-bottom: 2px solid #fff;
+    position: relative;
+    flex-basis: 40%;
+    //background-color: red;
+    
+    #secretNumberContainer {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        bottom: -100px;
+        font-size: 6rem;
+        left: calc(50% - 100px);
+        background-color: #fff;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.btn {
+    background-color: #fff;
+    padding: 15px 35px;
+    font-size: 1rem;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.h-70 {
+    height: 70%;
+}
+
+
+#guessNumberInput {
+    border: 2px solid #fff;
+    padding: 1rem 2rem;
+    background-color: #000;
+    font-size: 2rem;;
+    color:#fff;
+}
+
+
+#page-title {
+    margin-top: 50px;
+    text-align: center;
+}
