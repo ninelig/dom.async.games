@@ -1,20 +1,12 @@
+import { generateRandomNumber, checkGuessNumber } from './func.js';
 
-function generateRandomNumber(){
-    const randomNumber =  Math.floor(Math.random() * 20) + 1;
+const INITIAL_SCORE = 20;
 
-    console.log('Random Number', randomNumber);
-    return randomNumber;
- }
-
- const INITIAL_SCORE = 20;
-
- let scoreValue = INITIAL_SCORE;
- let highscoreValue = 0;
- let secretNumber = generateRandomNumber();
- 
+let scoreValue = INITIAL_SCORE;
+let highscoreValue = 0;
+let secretNumber = generateRandomNumber();
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const againBtn = document.getElementById("againBtn");
   const guessNumberInput = document.getElementById("guessNumberInput");
   const checkBtn = document.getElementById("checkBtn");
@@ -24,71 +16,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const secretNumberContainer = document.querySelector("#secretNumberContainer");
   const mainContainer = document.getElementById("main-container");
 
+  checkBtn.addEventListener("click", () => {
+    const guess = Number(guessNumberInput.value);
 
+    const result = checkGuessNumber(secretNumber, guess, scoreValue);
 
-   checkBtn.addEventListener("click", function() {
+    message.textContent = result.message;
+    score.textContent = result.score;
+    scoreValue = result.score;
 
-    const guessValue = guessNumberInput.value;
-  
-    let messageValue = '';
-    let isGameOver = false;
+    if (result.isCorrect) {
+      secretNumberContainer.textContent = secretNumber;
+      mainContainer.style.backgroundColor = "green";
+      checkBtn.disabled = true;
 
-    
-
-    if (guessValue == secretNumber) {
-       messageValue = "Correct Number!";
-
-       secretNumberContainer.innerHTML = secretNumber;
-       
-       if(scoreValue > highscoreValue) {
-         highscoreValue = scoreValue;
-         highscore.textContent = highscoreValue;
-
-       }
-       
-       mainContainer.style.backgroundColor = "green";
-
-       isGameOver = true;
-
-    } else {
-        messageValue = (guessValue > secretNumber) ? 'Too high!' : 'Too low!';
-        scoreValue--;
-        score.textContent = scoreValue; 
-
-        if(scoreValue <= 0){
-            messageValue = "You lost the game!";
-            mainContainer.style.backgroundColor = "red";
-            isGameOver = true;
-        }
+      if (scoreValue > highscoreValue) {
+        highscoreValue = scoreValue;
+        highscore.textContent = highscoreValue;
+      }
+    } else if (result.isGameOver) {
+      mainContainer.style.backgroundColor = "red";
+      checkBtn.disabled = true;
     }
-    message.textContent = messageValue;
 
     guessNumberInput.value = '';
+  });
 
-    if (isGameOver) {
-        checkBtn.disabled = true;
-    }
-
-
-   });
-
-
-
-
-   againBtn.addEventListener("click", () => {
-        secretNumber = generateRandomNumber();
-        checkBtn.disabled = false;
-        scoreValue = INITIAL_SCORE;
-
-        score.textContent = INITIAL_SCORE;
-        mainContainer.style.backgroundColor = "";
-
-        secretNumberContainer.innerHTML = '?';
-      
-   });
-
-
-
-
-
+  againBtn.addEventListener("click", () => {
+    secretNumber = generateRandomNumber();
+    scoreValue = INITIAL_SCORE;
+    score.textContent = scoreValue;
+    secretNumberContainer.textContent = '?';
+    message.textContent = '';
+    mainContainer.style.backgroundColor = '';
+    guessNumberInput.value = '';
+    checkBtn.disabled = false;
+  });
 });
